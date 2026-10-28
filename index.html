@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Dossiê AI Act</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,650&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: índice jurídico — cabeçalho sóbrio, cronologia, depois secções numeradas por categoria de documento, cada entrada com referência oficial em mono */
+:root{
+  --bg:#f6f6f5; --surface:#ffffff; --fg:#1b1b1a; --muted:#5f5f5c; --rule:#d9d9d6; --ink:#2b2b29;
+  --bind:#1b1b1a; --guide:#55554f; --vol:#8a8a84; --prep:#b3b3ad;
+  --display:"Newsreader", Georgia, "Times New Roman", serif;
+  --body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141413; --surface:#1d1d1c; --fg:#ececea; --muted:#a3a39e; --rule:#33332f; --ink:#d8d8d4;
+  --bind:#ececea; --guide:#b5b5b0; --vol:#86867f; --prep:#5c5c57; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141413; --surface:#1d1d1c; --fg:#ececea; --muted:#a3a39e; --rule:#33332f; --ink:#d8d8d4;
+  --bind:#ececea; --guide:#b5b5b0; --vol:#86867f; --prep:#5c5c57; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55}
+.wrap{max-width:920px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px 64px}
+a{color:var(--fg);text-decoration-color:var(--muted);text-underline-offset:3px}
+a:hover{text-decoration-color:var(--fg)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+header{border-bottom:2px solid var(--fg);padding-bottom:20px;display:grid;gap:10px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:650;font-size:clamp(30px,5vw,44px);line-height:1.1;margin:0;text-wrap:balance}
+.lede{max-width:65ch;color:var(--ink);margin:0}
+.meta{font-family:var(--mono);font-size:12px;color:var(--muted)}
+h2{font-family:var(--display);font-weight:650;font-size:24px;margin:0;text-wrap:balance;display:flex;gap:12px;align-items:baseline}
+h2 .n{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--muted)}
+section{display:grid;gap:14px;padding-top:36px}
+.intro{color:var(--muted);max-width:65ch;margin:0}
+nav.toc{margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:4px 24px;font-size:14px}
+nav.toc a{text-decoration:none;padding:4px 0;border-bottom:1px solid var(--rule);display:flex;gap:10px}
+nav.toc a span{font-family:var(--mono);color:var(--muted);font-size:12px;padding-top:2px}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;align-items:center}
+.legend .lbl{font-size:12px;color:var(--muted);margin-right:4px}
+.chip{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:2px;border:1px solid currentColor;white-space:nowrap;background:transparent;cursor:default}
+button.chip{cursor:pointer;color:var(--fg)}
+button.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.t-bind{color:var(--bind)} .t-guide{color:var(--guide)} .t-vol{color:var(--vol)} .t-prep{color:var(--prep)}
+.t-bind.solid{background:var(--bind);color:var(--bg);border-color:var(--bind)}
+ol.docs{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+ol.docs li{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:14px 0;border-bottom:1px solid var(--rule)}
+ol.docs li > div{min-width:0}
+.title{font-weight:600;margin:0}
+.ref{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin:2px 0 0;overflow-wrap:anywhere}
+.desc{margin:6px 0 0;color:var(--ink);max-width:68ch;font-size:14.5px}
+.links{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:6px;font-size:13.5px}
+.timeline{overflow-x:auto;border:1px solid var(--rule);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:500}
+tbody tr:nth-child(even){background:var(--bg)}
+td.d{font-family:var(--mono);white-space:nowrap;font-variant-numeric:tabular-nums}
+tr.now td{font-weight:600}
+.note{border-left:3px solid var(--fg);padding:10px 14px;background:var(--surface);font-size:14px;max-width:72ch}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--rule);font-size:13px;color:var(--muted)}
+@media (max-width:560px){ol.docs li{grid-template-columns:1fr} ol.docs li .chip{justify-self:start;grid-row:1}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">Regulamento (UE) 2024/1689 · Inteligência Artificial</div>
+  <h1>Dossiê de documentos oficiais do AI Act</h1>
+  <p class="lede">Textos legais, processo legislativo, atos de execução, orientações da Comissão, códigos de prática, normas harmonizadas e enquadramento português, com ligação direta às fontes oficiais (EUR-Lex, Comissão Europeia, Parlamento Europeu).</p>
+  <div class="meta">Atualizado a 27 out 2026 · inclui as alterações do Omnibus Digital sobre IA (Reg. (UE) 2026/1744)</div>
+  <div class="links" style="font-size:14px"><a href="AI_Act_APA7.docx">Descarregar o texto de apoio (Word, APA 7)</a></div>
+  <nav class="toc" aria-label="Índice">
+    <a href="#cronologia"><span>00</span>Cronologia de aplicação</a>
+    <a href="#legais"><span>01</span>Textos legais</a>
+    <a href="#processo"><span>02</span>Processo legislativo</a>
+    <a href="#governacao"><span>03</span>Governação e atos de execução</a>
+    <a href="#orientacoes"><span>04</span>Orientações da Comissão</a>
+    <a href="#gpai"><span>05</span>Modelos de IA de finalidade geral</a>
+    <a href="#codigos"><span>06</span>Transparência e conteúdos gerados</a>
+    <a href="#normas"><span>07</span>Normalização</a>
+    <a href="#portugal"><span>08</span>Portugal</a>
+    <a href="#portais"><span>09</span>Portais oficiais</a>
+  </nav>
+  <div class="legend" role="group" aria-label="Filtrar por natureza do documento">
+    <span class="lbl">Filtrar:</span>
+    <button class="chip" id="f-all" data-f="all" aria-pressed="true">Todos</button>
+    <button class="chip" id="f-bind" data-f="bind" aria-pressed="false">Vinculativo</button>
+    <button class="chip" id="f-guide" data-f="guide" aria-pressed="false">Orientação</button>
+    <button class="chip" id="f-vol" data-f="vol" aria-pressed="false">Voluntário</button>
+    <button class="chip" id="f-prep" data-f="prep" aria-pressed="false">Preparatório</button>
+  </div>
+</header>
+
+<section id="cronologia">
+  <h2><span class="n">00</span>Cronologia de aplicação</h2>
+  <p class="intro">Datas em vigor após o Omnibus Digital sobre IA, publicado no JO a 24 jul 2026 e em vigor desde 27 jul 2026.</p>
+  <div class="timeline"><table>
+    <thead><tr><th>Data</th><th>O que passa a aplicar-se</th><th>Base</th></tr></thead>
+    <tbody>
+      <tr><td class="d">01-08-2024</td><td>Entrada em vigor do Regulamento</td><td>Art. 113.º</td></tr>
+      <tr><td class="d">02-02-2025</td><td>Práticas proibidas e literacia em IA</td><td>Arts. 4.º e 5.º</td></tr>
+      <tr><td class="d">02-08-2025</td><td>Modelos de IA de finalidade geral, governação, autoridades notificadoras, sanções</td><td>Caps. III secç. 4, V, VII, XII</td></tr>
+      <tr><td class="d">02-08-2026</td><td>Obrigações de transparência do art. 50.º (exceto marcação do 50.º, n.º 2)</td><td>Art. 50.º</td></tr>
+      <tr class="now"><td class="d">02-12-2026</td><td>Marcação legível por máquina de conteúdos gerados por IA (art. 50.º, n.º 2) — próximo prazo</td><td>Omnibus</td></tr>
+      <tr><td class="d">02-08-2027</td><td>Prazo para cada Estado-Membro ter pelo menos uma sandbox regulatória de IA</td><td>Omnibus</td></tr>
+      <tr><td class="d">02-12-2027</td><td>Sistemas de risco elevado do Anexo III (autónomos)</td><td>Omnibus</td></tr>
+      <tr><td class="d">02-08-2028</td><td>Sistemas de risco elevado integrados em produtos regulados (Anexo I)</td><td>Omnibus</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="legais">
+  <h2><span class="n">01</span>Textos legais</h2>
+  <ol class="docs">
+    <li data-t="bind"><div>
+      <p class="title">Regulamento (UE) 2024/1689 — Regulamento da Inteligência Artificial</p>
+      <p class="ref">JO L, 2024/1689, 12.7.2024 · CELEX 32024R1689 · ELI data.europa.eu/eli/reg/2024/1689/oj</p>
+      <p class="desc">Texto original, adotado a 13 jun 2024. Versão autêntica em português disponível no EUR-Lex.</p>
+      <div class="links"><a href="https://eur-lex.europa.eu/legal-content/PT/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener">EUR-Lex (PT)</a><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" target="_blank" rel="noopener">ELI</a></div>
+    </div><span class="chip t-bind solid">Vinculativo</span></li>
+
+    <li data-t="bind"><div>
+      <p class="title">Versão consolidada do AI Act (a 27 jul 2026)</p>
+      <p class="ref">CELEX 02024R1689-20260727</p>
+      <p class="desc">Texto com as alterações do Omnibus integradas. Útil para consulta diária; só a versão publicada no JO faz fé.</p>
+      <div class="links"><a href="https://eur-lex.europa.eu/legal-content/PT/TXT/?uri=CELEX:02024R1689-20260727" target="_blank" rel="noopener">EUR-Lex consolidado (PT)</a></div>
+    </div><span class="chip t-bind solid">Vinculativo</span></li>
+
+    <li data-t="bind"><div>
+      <p class="title">Regulamento (UE) 2026/1744 — Omnibus Digital sobre IA</p>
+      <p class="ref">JO L, 2026/1744, 24.7.2026 · CELEX 32026R1744 · procedimento 2025/0359(COD)</p>
+      <p class="desc">Altera os Regulamentos 2024/1689, 2018/1139 (EASA) e 2023/1230 (Máquinas). Adia prazos de risco elevado, acrescenta proibição de aplicações de "nudificação" e de geração de material de abuso sexual de crianças, reforça o AI Office e alarga simplificações às pequenas empresas de média capitalização. Retificação publicada a 29 set 2026.</p>
+      <div class="links"><a href="https://eur-lex.europa.eu/legal-content/PT/TXT/?uri=OJ:L_202601744" target="_blank" rel="noopener">EUR-Lex (PT)</a><a href="https://eur-lex.europa.eu/eli/reg/2026/1744/oj" target="_blank" rel="noopener">ELI</a></div>
+    </div><span class="chip t-bind solid">Vinculativo</span></li>
+  </ol>
+</section>
+
+<section id="processo">
+  <h2><span class="n">02</span>Processo legislativo</h2>
+  <ol class="docs">
+    <li data-t="prep"><div>
+      <p class="title">Proposta da Comissão — COM(2021) 206 final</p>
+      <p class="ref">21.4.2021 · CELEX 52021PC0206 · procedimento 2021/0106(COD)</p>
+      <p class="desc">Proposta original, acompanhada de avaliação de impacto.</p>
+      <div class="links"><a href="https://eur-lex.europa.eu/legal-content/PT/TXT/?uri=CELEX:52021PC0206" target="_blank" rel="noopener">EUR-Lex (PT)</a></div>
+    </div><span class="chip t-prep">Preparatório</span></li>
+
+    <li data-t="prep"><div>
+      <p class="title">Ficha do procedimento 2021/0106(COD) — Observatório Legislativo do PE</p>
+      <p class="ref">Orientação geral do Conselho (dez 2022) · posição do PE (jun 2023) · acordo em trílogo (dez 2023) · votação final no PE (13 mar 2024) · adoção no Conselho (21 mai 2024)</p>
+      <p class="desc">Reúne todos os documentos intermédios: relatórios das comissões IMCO e LIBE, pareceres do CESE e do Comité das Regiões, textos aprovados.</p>
+      <div class="links"><a href="https://oeil.secure.europarl.europa.eu/oeil/en/procedure-file?reference=2021/0106(COD)" target="_blank" rel="noopener">OEIL 2021/0106(COD)</a></div>
+    </div><span class="chip t-prep">Preparatório</span></li>
+
+    <li data-t="prep"><div>
+      <p class="title">Ficha do procedimento 2025/0359(COD) — Omnibus Digital sobre IA</p>
+      <p class="ref">Proposta 19.11.2025 · relatório IMCO/LIBE A10-0073/2026 (18 mar 2026) · acordo provisório 7 mai 2026 · PE 16 jun 2026 · Conselho 29 jun 2026</p>
+      <p class="desc">Documentos preparatórios da primeira revisão do AI Act.</p>
+      <div class="links"><a href="https://oeil.secure.europarl.europa.eu/oeil/en/procedure-file?reference=2025/0359(COD)" target="_blank" rel="noopener">OEIL 2025/0359(COD)</a></div>
+    </div><span class="chip t-prep">Preparatório</span></li>
+  </ol>
+</section>
+
+<section id="governacao">
+  <h2><span class="n">03</span>Governação e atos de execução</h2>
+  <ol class="docs">
+    <li data-t="bind"><div>
+      <p class="title">Decisão da Comissão que cria o Serviço Europeu para a IA (AI Office)</p>
+      <p class="ref">C(2024) 390 final · 24.1.2024</p>
+      <p class="desc">Base institucional do AI Office dentro da DG CNECT.</p>
+      <div class="links"><a href="https://digital-strategy.ec.europa.eu/en/library/commission-decision-establishing-european-ai-office" target="_blank" rel="noopener">Comissão Europeia</a></div>
+    </div><span class="chip t-bind solid">Vinculativo</span></li>
+
+    <li data-t="bind"><div>
+      <p class="title">Regulamento de Execução (UE) 2025/454 — Painel científico de peritos independentes</p>
+      <p class="ref">CELEX 32025R0454 · art. 68.º do AI Act</p>
+      <p class="desc">Cria o painel científico que apoia a fiscalização dos modelos de finalidade geral. O painel reuniu em sessão especial a 9 out 2026.</p>
+      <div class="links"><a href="https://eur-lex.europa.eu/legal-content/PT/TXT/?uri=CELEX:32025R0454" target="_blank" rel="noopener">EUR-Lex (PT)</a></div>
+    </div><span class="chip t-bind solid">Vinculativo</span></li>
+
+    <li data-t="prep"><div>
+      <p class="title">Projeto de regras processuais para sistemas sob supervisão exclusiva do AI Office</p>
+      <p class="ref">Consulta aberta a 12 out 2026</p>
+      <p class="desc">Define passos de investigação e prazos de prescrição para coimas aplicáveis a sistemas assentes em modelos de finalidade geral.</p>
+      <div class="links"><a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener">Página do quadro regulamentar</a></div>
+    </div><span class="chip t-prep">Preparatório</span></li>
+  </ol>
+</section>
+
+<section id="orientacoes">
+  <h2><span class="n">04</span>Orientações da Comissão</h2>
+  <p class="intro">Não vinculativas, mas são a interpretação oficial da Comissão (art. 96.º).</p>
+  <ol class="docs">
+    <li data-t="guide"><div>
+      <p class="title">Orientações sobre práticas de IA proibidas</p>
+      <p class="ref">C(2025) 884 · fev 2025 · art. 5.º</p>
+      <p class="desc">Explicações jurídicas e exemplos práticos de cada proibição.</p>
+      <div class="links"><a href="https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-prohibited-artificial-intelligence-ai-practices-defined-ai-act" target="_blank" rel="noopener">Comissão Europeia</a></div>
+    </div><span class="chip t-guide">Orientação</span></li>
+
+    <li data-t="guide"><div>
+      <p class="title">Orientações sobre a definição de sistema de IA</p>
+      <p class="ref">fev 2025 · art. 3.º, ponto 1</p>
+      <p class="desc">Ajuda a decidir se um software está dentro do âmbito do Regulamento.</p>
+      <div class="links"><a href="https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-ai-system-definition-facilitate-first-ai-acts-rules-application" target="_blank" rel="noopener">Comissão Europeia</a></div>
+    </div><span class="chip t-guide">Orientação</span></li>
+
+    <li data-t="guide"><div>
+      <p class="title">Orientações sobre as obrigações de transparência do art. 50.º</p>
+      <p class="ref">C(2026) 5054 · aprovadas a 20 jul 2026</p>
+      <p class="desc">Cobrem as quatro obrigações: interação com IA, marcação de conteúdos sintéticos, reconhecimento de emoções e categorização biométrica, deepfakes e texto de interesse público. A adoção formal ocorre quando todas as versões linguísticas estiverem disponíveis.</p>
+      <div class="links"><a href="https://digital-strategy.ec.europa.eu/en/library/guidelines-transparency-obligations-providers-and-deployers-ai-systems" target="_blank" rel="noopener">Comissão Europeia</a></div>
+    </div><span class="chip t-guide">Orientação</span></li>
+
+    <li data-t="prep"><div>
+      <p class="title">Projeto de orientações sobre a classificação de sistemas de risco elevado</p>
+      <p class="ref">19 mai 2026 · art. 6.º, n.º 5 · consulta até 23 jun 2026 · versão final por publicar</p>
+      <p class="desc">Três documentos: princípios gerais, via do art. 6.º, n.º 1 (Anexo I) e via do art. 6.º, n.º 2 (Anexo III), com interpretação restritiva do filtro do n.º 3.</p>
+      <div class="links"><a href="https://ai-act-service-desk.ec.europa.eu/" target="_blank" rel="noopener">Plataforma única de informação</a></div>
+    </div><span class="chip t-prep">Preparatório</span></li>
+  </ol>
+</section>
+
+<section id="gpai">
+  <h2><span class="n">05</span>Modelos de IA de finalidade geral</h2>
+  <ol class="docs">
+    <li data-t="vol"><div>
+      <p class="title">Código de Prática para modelos de IA de finalidade geral</p>
+      <p class="ref">10 jul 2025 · capítulos: transparência, direitos de autor, segurança e proteção</p>
+      <p class="desc">Instrumento voluntário avaliado como adequado pela Comissão e pelo Comité Europeu para a IA.</p>
+      <div class="links"><a href="https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai" target="_blank" rel="noopener">Comissão Europeia</a></div>
+    </div><span class="chip t-vol">Voluntário</span></li>
+
+    <li data-t="guide"><div>
+      <p class="title">Orientações sobre o âmbito das obrigações dos fornecedores de modelos de finalidade geral</p>
+      <p class="ref">18 jul 2025 · arts. 51.º–55.º</p>
+      <p class="desc">Define quando um modelo é de finalidade geral, quem é fornecedor e o tratamento de modelos de código aberto.</p>
+      <div class="links"><a href="https://digital-strategy.ec.europa.eu/en/policies/guidelines-gpai-providers" target="_blank" rel="noopener">Comissão Europeia</a></div>
+    </div><span class="chip t-guide">Orientação</span></li>
+
+    <li data-t="bind"><div>
+      <p class="title">Modelo para o resumo público dos dados de treino</p>
+      <p class="ref">24 jul 2025 · art. 53.º, n.º 1, alínea d)</p>
+      <p class="desc">Formato obrigatório do resumo do conteúdo usado para treinar o modelo.</p>
+      <div class="links"><a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener">Página do quadro regulamentar</a></div>
+    </div><span class="chip t-bind solid">Vinculativo</span></li>
+  </ol>
+</section>
+
+<section id="codigos">
+  <h2><span class="n">06</span>Transparência e conteúdos gerados</h2>
+  <ol class="docs">
+    <li data-t="vol"><div>
+      <p class="title">Código de Prática sobre marcação e rotulagem de conteúdos gerados por IA</p>
+      <p class="ref">versão final 10 jun 2026 · art. 50.º, n.os 2, 4 e 5 · comunicado IP/26/1328</p>
+      <p class="desc">Duas secções (fornecedores e responsáveis pela implantação) e três ícones UE para rotulagem. Em avaliação de adequação pela Comissão e pelo Comité para a IA.</p>
+      <div class="links"><a href="https://ec.europa.eu/commission/presscorner/detail/en/ip_26_1328" target="_blank" rel="noopener">Comunicado da Comissão</a></div>
+    </div><span class="chip t-vol">Voluntário</span></li>
+  </ol>
+</section>
+
+<section id="normas">
+  <h2><span class="n">07</span>Normalização</h2>
+  <ol class="docs">
+    <li data-t="prep"><div>
+      <p class="title">Pedido de normalização ao CEN-CENELEC</p>
+      <p class="ref">C(2023) 3215 · 10 áreas técnicas · trabalhos no JTC 21</p>
+      <p class="desc">Base das normas harmonizadas que conferem presunção de conformidade.</p>
+      <div class="links"><a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener">Página do quadro regulamentar</a></div>
+    </div><span class="chip t-prep">Preparatório</span></li>
+
+    <li data-t="bind"><div>
+      <p class="title">EN 18286:2026 — Sistema de gestão da qualidade para o AI Act</p>
+      <p class="ref">referência publicada no JO em out 2026 · primeira norma harmonizada</p>
+      <p class="desc">Confere presunção de conformidade com o art. 17.º. As restantes áreas do pedido ainda não têm norma harmonizada.</p>
+      <div class="links"><a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener">Anúncio da Comissão (19 out 2026)</a></div>
+    </div><span class="chip t-bind solid">Vinculativo</span></li>
+  </ol>
+</section>
+
+<section id="portugal">
+  <h2><span class="n">08</span>Portugal</h2>
+  <ol class="docs">
+    <li data-t="prep"><div>
+      <p class="title">ANACOM como autoridade de fiscalização do mercado e ponto de contacto único</p>
+      <p class="ref">anunciado pelo Governo a 19 set 2025</p>
+      <p class="desc">Coordena as restantes entidades nacionais. Fontes secundárias indicam que o diploma de designação formal ainda não estava publicado em out 2026: confirme no Diário da República antes de citar.</p>
+      <div class="links"><a href="https://www.anacom.pt" target="_blank" rel="noopener">ANACOM</a><a href="https://diariodarepublica.pt" target="_blank" rel="noopener">Diário da República</a></div>
+    </div><span class="chip t-prep">Preparatório</span></li>
+
+    <li data-t="bind"><div>
+      <p class="title">Lista das 14 autoridades de proteção dos direitos fundamentais (art. 77.º)</p>
+      <p class="ref">notificada à Comissão</p>
+      <p class="desc">Inclui, entre outras, ANACOM, IGF e GNS. Podem pedir documentação ao abrigo do Regulamento, mas não aplicam coimas por si.</p>
+      <div class="links"><a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener">Comissão Europeia</a></div>
+    </div><span class="chip t-bind solid">Vinculativo</span></li>
+
+    <li data-t="guide"><div>
+      <p class="title">Agenda Nacional de Inteligência Artificial</p>
+      <p class="ref">Resolução do Conselho de Ministros n.º 2/2026</p>
+      <p class="desc">Prevê a definição de autoridades, coordenação, regime sancionatório e sandboxes regulatórias.</p>
+      <div class="links"><a href="https://diariodarepublica.pt" target="_blank" rel="noopener">Diário da República</a></div>
+    </div><span class="chip t-guide">Orientação</span></li>
+  </ol>
+</section>
+
+<section id="portais">
+  <h2><span class="n">09</span>Portais oficiais</h2>
+  <ol class="docs">
+    <li data-t="guide"><div>
+      <p class="title">Quadro regulamentar da IA — Comissão Europeia</p>
+      <p class="ref">digital-strategy.ec.europa.eu</p>
+      <p class="desc">Página-mãe com notícias, perguntas frequentes e biblioteca de documentos.</p>
+      <div class="links"><a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener">Abrir</a></div>
+    </div><span class="chip t-guide">Orientação</span></li>
+    <li data-t="guide"><div>
+      <p class="title">AI Act Service Desk e Plataforma Única de Informação</p>
+      <p class="ref">ai-act-service-desk.ec.europa.eu</p>
+      <p class="desc">Explorador do texto, verificador de conformidade e projetos de orientações em formato navegável.</p>
+      <div class="links"><a href="https://ai-act-service-desk.ec.europa.eu/" target="_blank" rel="noopener">Abrir</a></div>
+    </div><span class="chip t-guide">Orientação</span></li>
+  </ol>
+  <p class="note">Antes de citar em trabalho académico, use sempre a versão do Jornal Oficial (ou a consolidada para leitura) e indique a data de consulta. As ligações da Comissão estão em inglês; as do EUR-Lex abrem diretamente em português.</p>
+</section>
+
+<footer>Compilado a partir de EUR-Lex, Comissão Europeia, Parlamento Europeu e imprensa jurídica, a 27 out 2026. Não constitui aconselhamento jurídico.</footer>
+</div>
+
+<script>
+(function(){
+  var btns=document.querySelectorAll('.legend button');
+  function apply(f){
+    btns.forEach(function(b){b.setAttribute('aria-pressed', b.dataset.f===f?'true':'false')});
+    document.querySelectorAll('ol.docs li').forEach(function(li){li.hidden = !(f==='all'||li.dataset.t===f)});
+    document.querySelectorAll('section').forEach(function(s){
+      var lis=s.querySelectorAll('ol.docs li'); if(!lis.length) return;
+      var any=[].some.call(lis,function(li){return !li.hidden}); s.hidden=!any;
+    });
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){apply(b.dataset.f)})});
+})();
+</script>
+
+</body>
+</html>
